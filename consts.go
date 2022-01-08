@@ -1,49 +1,39 @@
 package main
 
-import "image/color"
-
 const (
 	HEIGHT = 1000
 	WIDTH  = 1000
 )
 
+type Color string
+
 var (
-	COLOR_BLACK = color.RGBA{}
-	COLOR_RED   = color.RGBA{
-		R: 255, A: 255,
-	}
-	COLOR_BLUE = color.RGBA{
-		B: 255, A: 255,
-	}
-	COLOR_GREEN = color.RGBA{
-		G: 255, A: 255,
-	}
-	COLOR_WHITE = color.RGBA{
-		R: 255, G: 255, B: 255, A: 255,
-	}
-	COLOR_RED_LIGHT = color.RGBA{
-		R: 255, G: 50, B: 50, A: 255,
-	}
-	COLOR_BLUE_LIGHT = color.RGBA{
-		R: 50, G: 50, B: 255, A: 255,
-	}
+	COLOR_BLACK     Color = "#000000"
+	COLOR_RED       Color = "#FF0000"
+	COLOR_BLUE      Color = "#0000FF"
+	COLOR_GREEN     Color = "#00FF00"
+	COLOR_WHITE     Color = "#FFFFFF"
+	COLOR_GREY      Color = "#272124"
+	COLOR_LIME      Color = "#B9F621"
+	COLOR_TURQUOISE Color = "#10ADC5"
+	COLOR_OLIVE     Color = "#3D6341"
 )
 
 var (
-	RulesLLRR = map[color.RGBA]Move{
+	RulesLLRR = map[Color]Move{
 		COLOR_WHITE: {
 			Rotation: LeftRotation,
-			Recolor:  COLOR_RED_LIGHT,
+			Recolor:  COLOR_LIME,
 		},
-		COLOR_RED_LIGHT: {
+		COLOR_LIME: {
 			Rotation: LeftRotation,
-			Recolor:  COLOR_RED,
+			Recolor:  COLOR_OLIVE,
 		},
-		COLOR_RED: {
+		COLOR_OLIVE: {
 			Rotation: RightRotation,
-			Recolor:  COLOR_BLUE,
+			Recolor:  COLOR_GREY,
 		},
-		COLOR_BLUE: {
+		COLOR_GREY: {
 			Rotation: RightRotation,
 			Recolor:  COLOR_WHITE,
 		},

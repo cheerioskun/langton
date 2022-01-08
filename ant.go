@@ -1,9 +1,5 @@
 package main
 
-import (
-	"image/color"
-)
-
 type Orientation int
 
 const (
@@ -21,7 +17,7 @@ type Ant struct {
 	Y    int
 	// Where is the ant facing
 	orientation Orientation
-	rules       map[color.RGBA]Move
+	rules       map[Color]Move
 }
 
 type RotationType int
@@ -37,7 +33,7 @@ const (
 type Move struct {
 	// Rotations are L: 0 R: 1
 	Rotation RotationType
-	Recolor  color.RGBA
+	Recolor  Color
 }
 
 // Initialize an ant with the default rule for a langton ant
@@ -47,7 +43,7 @@ func NewAnt(g *Grid, xinit int, yinit int) *Ant {
 		X:           xinit,
 		Y:           yinit,
 		orientation: U,
-		rules: map[color.RGBA]Move{
+		rules: map[Color]Move{
 			COLOR_WHITE: {
 				Rotation: LeftRotation,
 				Recolor:  COLOR_RED,
@@ -61,7 +57,7 @@ func NewAnt(g *Grid, xinit int, yinit int) *Ant {
 	return &a
 }
 
-func NewAntWithRules(g *Grid, xinit int, yinit int, rules map[color.RGBA]Move) *Ant {
+func NewAntWithRules(g *Grid, xinit int, yinit int, rules map[Color]Move) *Ant {
 	a := NewAnt(g, xinit, yinit)
 	a.rules = rules
 	return a

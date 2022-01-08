@@ -13,11 +13,14 @@ func main() {
 	}
 	defer wnd.Destroy()
 	log.Printf("Canvas dimensions: %d %d", cv.Width(), cv.Height())
-	g := NewGrid(cv, 100, 100, COLOR_WHITE)
+	g := NewGrid(cv, 100, 100, COLOR_GREY)
 	a := NewAntWithRules(g, 50, 50, RulesLLRR)
 	log.Printf("New ant: %v", a)
+	stepSize := 100
 	wnd.MainLoop(func() {
-		a.Move()
+		for i := 0; i < stepSize; i += 1 {
+			a.Move()
+		}
 		g.Render()
 		// time.Sleep(time.Millisecond * 20)
 	})

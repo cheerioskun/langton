@@ -1,7 +1,6 @@
 package main
 
 import (
-	"image/color"
 	"log"
 
 	"github.com/tfriedel6/canvas"
@@ -11,12 +10,12 @@ type Grid struct {
 	cv     *canvas.Canvas
 	R      int // Number of rows in grid
 	C      int // Number of columns in grid
-	Colors [][]color.RGBA
+	Colors [][]Color
 	h      int // Height of each element
 	w      int // Width of each element
 }
 
-func NewGrid(cv *canvas.Canvas, R int, C int, clr color.RGBA) *Grid {
+func NewGrid(cv *canvas.Canvas, R int, C int, clr Color) *Grid {
 	g := Grid{
 		cv: cv,
 		R:  R,
@@ -24,9 +23,9 @@ func NewGrid(cv *canvas.Canvas, R int, C int, clr color.RGBA) *Grid {
 		h:  cv.Height() / R,
 		w:  cv.Width() / C,
 	}
-	g.Colors = make([][]color.RGBA, g.R)
+	g.Colors = make([][]Color, g.R)
 	for row := range g.Colors {
-		g.Colors[row] = make([]color.RGBA, g.C)
+		g.Colors[row] = make([]Color, g.C)
 		for column := 0; column < g.C; column += 1 {
 			g.Colors[row][column] = clr
 		}
@@ -55,19 +54,19 @@ func (g *Grid) Render() {
 	for r := 0; r < g.R; r += 1 {
 		for c := 0; c < g.C; c += 1 {
 			clr := g.Colors[r][c]
-
-			g.cv.SetFillStyle(clr.R, clr.G, clr.B, clr.A)
+			crgba, _ := ParseHexColor(string(clr))
+			g.cv.SetFillStyle(crgba.R, crgba.G, crgba.B, crgba.A)
 			g.cv.FillRect(g.toPixels(r, c))
 		}
 	}
 }
 
-func (g *Grid) SetColor(r, c int, clr color.RGBA) {
+func (g *Grid) SetColor(r, c int, clr Color) {
 	if g.isValidCoord(r, c) {
 		g.Colors[r][c] = clr
 	}
 }
-func (g *Grid) GetColor(r, c int) color.RGBA {
+func (g *Grid) GetColor(r, c int) Color {
 	if g.isValidCoord(r, c) {
 		return g.Colors[r][c]
 	}
