@@ -1,4 +1,4 @@
 # langton
 ## Langton's Ants using Go
 
-This project recreates famous visualizations of langton's ants using `github.com/fogleman/gg`
+Simulataneously an experiment in using 2D graphics libraries for Go and exploring emergent visual structures in the Langton's ant program
