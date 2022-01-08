@@ -2,32 +2,41 @@ package main
 
 import (
 	"log"
+	"math"
 
 	"github.com/tfriedel6/canvas"
 )
 
 type Grid struct {
-	cv     *canvas.Canvas
-	R      int // Number of rows in grid
-	C      int // Number of columns in grid
-	Colors [][]Color
-	h      int // Height of each element
-	w      int // Width of each element
+	cv        *canvas.Canvas
+	R         int // Number of rows in grid
+	C         int // Number of columns in grid
+	Colors    [][]Color
+	ColorTime [][]int
+	Bg        Color
+	h         int     // Height of each element
+	w         int     // Width of each element
+	decay     float64 // Decay factor for the colors
 }
 
-func NewGrid(cv *canvas.Canvas, R int, C int, clr Color) *Grid {
+func NewGrid(cv *canvas.Canvas, R int, C int, clr Color, decay float64) *Grid {
 	g := Grid{
-		cv: cv,
-		R:  R,
-		C:  C,
-		h:  cv.Height() / R,
-		w:  cv.Width() / C,
+		cv:    cv,
+		R:     R,
+		C:     C,
+		h:     cv.Height() / R,
+		w:     cv.Width() / C,
+		Bg:    clr,
+		decay: decay,
 	}
 	g.Colors = make([][]Color, g.R)
+	g.ColorTime = make([][]int, g.R)
 	for row := range g.Colors {
 		g.Colors[row] = make([]Color, g.C)
+		g.ColorTime[row] = make([]int, g.C)
 		for column := 0; column < g.C; column += 1 {
 			g.Colors[row][column] = clr
+			g.ColorTime[row][column] = 0
 		}
 	}
 	return &g
@@ -55,6 +64,11 @@ func (g *Grid) Render() {
 		for c := 0; c < g.C; c += 1 {
 			clr := g.Colors[r][c]
 			crgba, _ := ParseHexColor(string(clr))
+			bg, _ := ParseHexColor(string(g.Bg))
+			chsv, bhsv := RGBtoHSV(crgba), RGBtoHSV(bg)
+			ratio := 1 - math.Exp(-float64(t-g.ColorTime[r][c])*g.decay)
+			chsv = ExpInterpolate(chsv, bhsv, ratio)
+			crgba = HSVtoRGB(chsv)
 			g.cv.SetFillStyle(crgba.R, crgba.G, crgba.B, crgba.A)
 			g.cv.FillRect(g.toPixels(r, c))
 		}
@@ -64,6 +78,7 @@ func (g *Grid) Render() {
 func (g *Grid) SetColor(r, c int, clr Color) {
 	if g.isValidCoord(r, c) {
 		g.Colors[r][c] = clr
+		g.ColorTime[r][c] = t
 	}
 }
 func (g *Grid) GetColor(r, c int) Color {
