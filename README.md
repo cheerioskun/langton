@@ -10,8 +10,9 @@ Run `go build` in the project directory to create executable
 
 ### Components
 ---
-**Grid** : Grid object is an abstraction over the SDL2 canvas object with utility functions for rendering and managing colors in the grid.
-**Ants** : Ant object is an autonomous agent that is configured with a set of initial rules and a pointer to it's parent grid as context of where it exists. It can be Move()d and changes the colors in the grid and it's own orientation
+-**Grid** : Grid object is an abstraction over the SDL2 canvas object with utility functions for rendering and managing colors in the grid.
+
+-**Ants** : Ant object is an autonomous agent that is configured with a set of initial rules and a pointer to it's parent grid as context of where it exists. It can be Move()d and changes the colors in the grid and it's own orientation
 
 ### Results
 ---
