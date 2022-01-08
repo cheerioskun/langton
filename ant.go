@@ -61,6 +61,12 @@ func NewAnt(g *Grid, xinit int, yinit int) *Ant {
 	return &a
 }
 
+func NewAntWithRules(g *Grid, xinit int, yinit int, rules map[color.RGBA]Move) *Ant {
+	a := NewAnt(g, xinit, yinit)
+	a.rules = rules
+	return a
+}
+
 func (a *Ant) Move() {
 
 	cx, cy, o, clr := a.X, a.Y, a.orientation, a.grid.GetColor(a.X, a.Y)
