@@ -15,6 +15,6 @@ Run `go build` in the project directory to create executable
 
 ### Results
 ---
-[ant_with_fading](https://github.com/cheerioskun/langton/blob/master/results/ants.gif?raw=true)
+![ant_with_fading](/results/ants.gif?raw=true)
 
 
