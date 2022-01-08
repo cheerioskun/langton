@@ -15,7 +15,7 @@ func main() {
 	}
 	defer wnd.Destroy()
 	log.Printf("Canvas dimensions: %d %d", cv.Width(), cv.Height())
-	g := NewGrid(cv, 100, 100, COLOR_GREY, 0.0002)
+	g := NewGrid(cv, 100, 100, COLOR_GREY, 0.002)
 	a := NewAntWithRules(g, 50, 50, RulesLLRR)
 	t = 0
 	log.Printf("New ant: %v", a)

@@ -27,9 +27,9 @@ var (
 		},
 		COLOR_LIME: {
 			Rotation: LeftRotation,
-			Recolor:  COLOR_OLIVE,
+			Recolor:  COLOR_TURQUOISE,
 		},
-		COLOR_OLIVE: {
+		COLOR_TURQUOISE: {
 			Rotation: RightRotation,
 			Recolor:  COLOR_GREY,
 		},
