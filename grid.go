@@ -67,3 +67,9 @@ func (g *Grid) SetColor(r, c int, clr color.RGBA) {
 		g.Colors[r][c] = clr
 	}
 }
+func (g *Grid) GetColor(r, c int) color.RGBA {
+	if g.isValidCoord(r, c) {
+		return g.Colors[r][c]
+	}
+	return COLOR_BLACK
+}
